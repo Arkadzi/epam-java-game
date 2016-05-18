@@ -8,18 +8,40 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Arkadiy on 18.05.2016.
+ * "Guess number" game controller
  */
 public class GameController {
+    /**
+     * input message for restart
+     */
     private final String RESTART = "restart";
+    /**
+     * input message for finish
+     */
     private final String FINISH = "finish";
+    /**
+     * minimum value for random generated answer
+     */
     private final int RAND_MIN = 0;
+    /**
+     * minimum value for random generated answer
+     */
     private final int RAND_MAX = 100;
-
+    /**
+     * view, representing the game
+     */
     private View view;
+    /**
+     * game storage
+     */
     private GameModel model;
-
+    /**
+     * random answer generator
+     */
     private Random random;
+    /**
+     * list of user's attempts
+     */
     private List<String> attempts;
 
     public GameController(View view, GameModel model) {
@@ -29,6 +51,9 @@ public class GameController {
         attempts = new ArrayList<>();
     }
 
+    /**
+     * launches the process of the game
+     */
     public void start() {
         String input = "";
         resetGame();
@@ -38,12 +63,17 @@ public class GameController {
             outputUserInfo();
             input = view.read();
             addAttempt(input);
-
             continueGame = handleInput(input);
 
         }
     }
 
+    /**
+     * handles user's input
+     *
+     * @param input - user's input string
+     * @return true if game process should continue
+     */
     private boolean handleInput(String input) {
         switch (input) {
             case RESTART:
@@ -75,10 +105,18 @@ public class GameController {
         return true;
     }
 
-    private void addAttempt(String input) {
-        attempts.add(input);
+    /**
+     * adds attempt to attempts' list
+     *
+     * @param attempt - user's input
+     */
+    private void addAttempt(String attempt) {
+        attempts.add(attempt);
     }
 
+    /**
+     * resets game state
+     */
     private void resetGame() {
         model.setLeft(RAND_MIN);
         model.setRight(RAND_MAX);
@@ -86,11 +124,21 @@ public class GameController {
         attempts.clear();
     }
 
+    /**
+     * outputs user's progress
+     */
     private void outputUserInfo() {
         view.print(String.format("borders: [%d:%d]", model.getLeft(), model.getRight()));
         view.print(String.format("attempts: %s", attempts));
     }
 
+    /**
+     * generates random number inclusively
+     *
+     * @param min - min value
+     * @param max - max value
+     * @return random generated value
+     */
     private int rand(int min, int max) {
         return min + random.nextInt(max - min + 1);
     }

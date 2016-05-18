@@ -1,18 +1,20 @@
 package me.arkadii.humennyi.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 /**
- * Created by Arkadiy on 18.05.2016.
+ * Simple entity class. Stores some data about state of game
  */
 public class GameModel {
-
-    private Random random;
-
+    /**
+     * right answer
+     */
     private int answer;
+    /**
+     * left boundary
+     */
     private int left;
+    /**
+     * right boundary
+     */
     private int right;
 
 
